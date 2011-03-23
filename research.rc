@@ -1,0 +1,20 @@
+export PATH=$PATH:~/research/bin
+
+# for git-svn and other utils
+export PATH=$PATH:/usr/local/git/libexec/git-core
+
+# libraries from MacPorts and Fink
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/research/lib:/usr/local/lib:/sw/lib
+#export LIBRARY_PATH=$LD_LIBRARY_PATH
+
+#########################################################
+
+# Ruby
+export RUBYLIB=$RUBYLIB:~/research/lib:~/research/src
+
+# GNU R
+export R_HOME=/Library/Frameworks/R.framework/Resources
+
+# Java
+export CLASSPATH=$CLASSPATH:~/research/lib/gs-core.jar:~/research/src
+
