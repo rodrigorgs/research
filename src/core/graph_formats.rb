@@ -1,4 +1,36 @@
 #!/usr/bin/env ruby
+
+=begin
+Conversion between multiple graph file formats and related functions
+Created for the course on architectural recovery
+
+Imports graph from doxyparse output
+
+Output formats supported:
+- "Pairs" (native format, pairs [a, b] representing edges)
+- RSF
+- GraphViz (dot)
+- Pajek
+- Adjacency matrix
+- Tab -- Orange's (http://www.ailab.si/orange/) tab-delimited file format
+- Orange's format for distances
+- ARFF (Weka's data file format)
+- GML (used in yEd), including modules <-- GOOD FOR VISUALIZATION!
+
+Input formats supported:
+- "Pairs" (native format)
+- Bunch modules (clustering tool)
+- RSF modules
+- Infomap modules
+- Orange modules
+
+Also, some helper functions:
+- to_numeric: converts node labels to numbers
+- matrix_to_jaccard_distance
+- matrix_to_csv
+- rename_mobules_abc: renames node labels to A, B, C...
+=end
+
 require 'stringio'
 require 'set'
 
@@ -349,7 +381,7 @@ end
 
 ################################################
 
-if __FILE__ == $0
+def example
   ### 1. Extrair as dependencias.
   ### (isso já foi feito)
   

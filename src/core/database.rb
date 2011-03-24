@@ -9,7 +9,7 @@ class Database
     @db = Sequel.connect(url)    
   end
 
-  # Some typical methods implement by subclasses
+  # Some typical methods implemented by subclasses
   # def create_tables
   # def create_views
   # def modify_tables

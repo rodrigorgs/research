@@ -4,11 +4,12 @@
 
 require 'time'
 require 'date'
-require 'narray'
 require 'set'
 require 'grit'
 require "enumerator"
 require 'ostruct'
+
+require 'core/util'
 
 =begin Old classes and methods
 # def commit_timetable(log, n_divisions)
@@ -168,6 +169,59 @@ class Grit::Commit
   end
 end
 
+
+########## based on analizo-metrics-history #################
+
+class Grit::Repo
+  attr_accessor :file_filter
+
+  def wanted_commits
+    return self.commits.first.wanted_list.sort_by { |commit| commit.committed_date }
+  end
+end
+
+class Grit::Commit
+  def merge?
+    self.parents.size > 1
+  end
+  def parentless
+    self.parents.size == 0
+  end
+  def wanted?
+    files = `git show --pretty=format: --name-only #{id}`.split
+    matches = (files.any? { |path| path =~ self.repo.file_filter })
+    !merge? && matches
+  end
+  def previous_wanted
+    if merge? || parentless
+      nil
+    else
+      previous = self.parents.first
+      if previous.wanted?
+        previous
+      else
+        previous.previous_wanted
+      end
+    end
+  end
+  def wanted_list
+    commit = self.wanted? ? self : self.previous_wanted
+    if commit
+      result = []
+      while commit
+        result << commit
+        commit = commit.previous_wanted
+      end
+      result
+    else
+      []
+    end
+  end
+end
+
+############ end ##########################################
+
+
 class Grit::Tree
   def blobs_recursive
     results = []
@@ -188,151 +242,73 @@ class Grit::Tree
   end
 end
 
-def create_index(array)
-  h = Hash.new
-  array.each_with_index { |elem, index| h[elem] = index }
-  return h
-end
-
 def print_timetable(table, sep="")
   lines = table.to_a.map { |row| row.join(sep) }
   puts lines.join("\n")
 end
 
-#@dir = "/Users/rodrigorgs/research/corpus/eclipse/org.eclipse.jdt.core.tests.compiler"
-@dir = "/Users/rodrigorgs/research/corpus/eclipse/org.eclipse.mylyn"
-@repo = Grit::Repo.new(@dir)
-Grit::Git::git_timeout = 90
-
-def go2
-  print_timetable(@repo.commit_timetable(70))
-end
-
-Frequency = Struct.new(:word, :frequency)
-
-def sparse_table_to_table(sparse_table, default_value)
-  x_values = sparse_table.keys.map{ |x| x[0] }.sort.uniq
-  y_values = sparse_table.keys.map{ |x| x[1] }.sort.uniq
-  
-  matrix = NMatrix.object(x_values.size + 1, y_values.size + 1)
-  matrix[1..x_values.size, 0] = x_values
-  matrix[0, 1..y_values.size] = y_values  
-  
-  # sparse_table.each do |x, y|
-  # end
-  
-  1.upto(x_values.size) do |i|
-    1.upto(y_values.size) do |j|
-      xname = x_values[i - 1]
-      yname = y_values[j - 1]
-      matrix[i, j] = sparse_table[[xname, yname]] || default_value
-    end
-  end
-  
-  return matrix
-end
-
-# It's like Excel's pivot table (or OpenOffice's DataPilot)
-def file_developer_table
-  freq = Hash.new(0)
-  
-  @repo.gitlog.each do |commit|
-    commit.files_modified.each do |filename|
-      freq[[commit.author.name, filename]] += 1
-    end
-  end
-  
-  return freq
-end
-
-# Files maintained by developer X are files that are frequently
-# modified by X and rarely developed by other developers.
-# We use tf-idf for this, where document=developer, and term=file
-# TODO: test (maybe it's not working)
-def files_maintained_by_developer(name)
-  all_files_modified_by_developer = @repo.gitlog
-      .select {|c| c.author.name == name}
-      .map(&:files_modified)
-      .flatten.uniq
-  
-  authors = @repo.gitlog.map{|commit| commit.author.name}.uniq
-  
-  # key: file; value: set of developers that modified file
-  authors_that_modified_file = Hash.new(Set.new)
-  
-  tf_num = Hash.new(0) # key: (file, author); value: frequency
-  tf_den = Hash.new(0) # key: author; value: number of files modified by author
-  idf = Hash.new(0)
-  @repo.gitlog.each do |commit|
-    files_modified = commit.files_modified
-    tf_den[commit.author.name] += files_modified.size
-    files_modified.each do |file|
-      tf_num[[file, commit.author.name]] += 1
-      authors_that_modified_file[file] << commit.author.name
-    end
-  end
-  
-  # key: file; value: tf-idf
-  tfidf_developer = Hash.new
-  all_files_modified_by_developer.each do |file| 
-    idf_file = Math.log(authors.size) / authors_that_modified_file[file].size
-    tfidf_developer[file] = (tf_num[[file, name]].to_f / (tf_den[name])) * idf_file
-  end
-
-  return tfidf_developer
-end
-
-def long_table
-  @repo.gitlog.each do |commit|
-    commit.files_modified.each do |filename|
-      puts "#{commit.id},#{commit.date.strftime('%d/%m/%Y')},#{commit.author.name},#{filename}"
-    end
-  end
-end
-
-MinMax = Struct.new(:minimum, :maximum)
-
-def go
-  author_min = Hash.new(Time.local(2200,12,31))
-  author_max = Hash.new(Time.at(0))
-
-  @repo.each_commit_row do |row|
-    name = row.author_s
-    date = row.date
-    if (date < author_min[name])
-      author_min[name] = date
-    end
-    if (date > author_max[name])
-      author_max[name] = date
-    end
-  end
-  
-  array = []
-  author_min.each_pair do |name, dates|
-    array << [name,
-        dates.strftime('%Y/%m/%d'),
-        author_max[name].strftime('%Y/%m/%d')]
-  end
-  
-  matrix = NMatrix[*array].transpose
-  nth_line = lambda {|n| matrix[nil,n].to_a[0].map{|x| "\"#{x}\""}.join(",")}
-  puts "gantt.info <- list(
-    labels=c(#{nth_line.call(0)}),
-    starts=as.POSIXct(strptime(c(#{nth_line.call(1)}), format=\"%Y/%m/%d\")),
-    ends=as.POSIXct(strptime(c(#{nth_line.call(2)}), format=\"%Y/%m/%d\")),
-    priotities=c(#{Array.new(author_min.size, 1).join(',')})
-    )"
-  puts "library(plotrix)"
-  puts "gantt.chart(gantt.info)"
-end
-
-def go_old
-  puts "Computing timetable:"
-  t = commit_timetable(@log, 70)
-  puts "Timetable:"
-  print_timetable(t)
-end
-
 if __FILE__ == $0
+
+  #@dir = "/Users/rodrigorgs/research/corpus/eclipse/org.eclipse.jdt.core.tests.compiler"
+  @dir = "/Users/rodrigorgs/research/corpus/eclipse/org.eclipse.mylyn"
+  @repo = Grit::Repo.new(@dir)
+  Grit::Git::git_timeout = 90
+
+  def print_long_table
+    @repo.gitlog.each do |commit|
+      commit.files_modified.each do |filename|
+        puts "#{commit.id},#{commit.date.strftime('%d/%m/%Y')},#{commit.author.name},#{filename}"
+      end
+    end
+  end
+
+  def go2
+    print_timetable(@repo.commit_timetable(70))
+  end
+
+  # Frequency = Struct.new(:word, :frequency)
+  # MinMax = Struct.new(:minimum, :maximum)
+
+  def go
+    author_min = Hash.new(Time.local(2200,12,31))
+    author_max = Hash.new(Time.at(0))
+
+    @repo.each_commit_row do |row|
+      name = row.author_s
+      date = row.date
+      if (date < author_min[name])
+        author_min[name] = date
+      end
+      if (date > author_max[name])
+        author_max[name] = date
+      end
+    end
+    
+    array = []
+    author_min.each_pair do |name, dates|
+      array << [name,
+          dates.strftime('%Y/%m/%d'),
+          author_max[name].strftime('%Y/%m/%d')]
+    end
+    
+    matrix = NMatrix[*array].transpose
+    nth_line = lambda {|n| matrix[nil,n].to_a[0].map{|x| "\"#{x}\""}.join(",")}
+    puts "gantt.info <- list(
+      labels=c(#{nth_line.call(0)}),
+      starts=as.POSIXct(strptime(c(#{nth_line.call(1)}), format=\"%Y/%m/%d\")),
+      ends=as.POSIXct(strptime(c(#{nth_line.call(2)}), format=\"%Y/%m/%d\")),
+      priotities=c(#{Array.new(author_min.size, 1).join(',')})
+      )"
+    puts "library(plotrix)"
+    puts "gantt.chart(gantt.info)"
+  end
+
+  def go_old
+    puts "Computing timetable:"
+    t = commit_timetable(@log, 70)
+    puts "Timetable:"
+    print_timetable(t)
+  end
+
   go
 end
