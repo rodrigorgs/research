@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'git_logs/database'
+require 'git/database'
 require 'core/network_base'
 
 class NetworkListener
