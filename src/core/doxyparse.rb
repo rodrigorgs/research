@@ -24,6 +24,14 @@ class DoxyParser
     end
   end
 
+  def parse_multiple_paths(paths)
+    Open3.popen3("xargs -L 500 doxyparse") do |stdin, stdout, stderr|
+      stdin.print(paths.join("\n"))
+      parse_io(stdout)
+      print stderr.read
+    end
+  end
+  
   def parse_path(path)
     Open3.popen3("doxyparse #{path}") do |stdin, stdout, stderr|
       parse_io(stdout)

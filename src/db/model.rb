@@ -38,6 +38,7 @@ end
 #
 class Identifier < Sequel::Model(:identifier)
   many_to_one :repofile
+  many_to_one :commit
 end
 ######################################################################
 

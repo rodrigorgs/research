@@ -1,0 +1,252 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		9701BCEB134118C9000DBADF /* database.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = database.rb; sourceTree = "<group>"; };
+		9701BCEC134118C9000DBADF /* doxyparse.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = doxyparse.rb; sourceTree = "<group>"; };
+		9701BCED134118C9000DBADF /* graph_formats.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = graph_formats.rb; sourceTree = "<group>"; };
+		9701BCEE134118C9000DBADF /* metrics.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = metrics.rb; sourceTree = "<group>"; };
+		9701BCEF134118C9000DBADF /* network_base.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = network_base.rb; sourceTree = "<group>"; };
+		9701BCF0134118C9000DBADF /* scm.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = scm.rb; sourceTree = "<group>"; };
+		9701BCF1134118C9000DBADF /* util.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = util.rb; sourceTree = "<group>"; };
+		9701BCF4134118C9000DBADF /* 001_initial_db.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = 001_initial_db.rb; sourceTree = "<group>"; };
+		9701BCF5134118C9000DBADF /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		9701BCF6134118C9000DBADF /* model.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = model.rb; sourceTree = "<group>"; };
+		9701BCF8134118C9000DBADF /* commits-to-gexf.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "commits-to-gexf.rb"; sourceTree = "<group>"; };
+		9701BCF9134118C9000DBADF /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		9701BCFB134118C9000DBADF /* .extract-repos.rb.swp */ = {isa = PBXFileReference; lastKnownFileType = file; path = ".extract-repos.rb.swp"; sourceTree = "<group>"; };
+		9701BCFC134118C9000DBADF /* extract-repos.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "extract-repos.rb"; sourceTree = "<group>"; };
+		9701BCFD134118C9000DBADF /* gephi-streaming-master.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "gephi-streaming-master.rb"; sourceTree = "<group>"; };
+		9701BCFF134118C9000DBADF /* Animate.class */ = {isa = PBXFileReference; lastKnownFileType = compiled.javaclass; path = Animate.class; sourceTree = "<group>"; };
+		9701BD00134118C9000DBADF /* Animate.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Animate.java; sourceTree = "<group>"; };
+		9701BD01134118C9000DBADF /* generate-dgs.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "generate-dgs.rb"; sourceTree = "<group>"; };
+		9701BD02134118C9000DBADF /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		9701BD04134118C9000DBADF /* extract-identifiers.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "extract-identifiers.rb"; sourceTree = "<group>"; };
+		9701BD05134118C9000DBADF /* read-git-logs.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "read-git-logs.rb"; sourceTree = "<group>"; };
+		9701BD121341288B000DBADF /* id-extractor.rb */ = {isa = PBXFileReference; fileEncoding = 4; path = "id-extractor.rb"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		9701BCDC134118A5000DBADF = {
+			isa = PBXGroup;
+			children = (
+				9701BCE9134118C9000DBADF /* src */,
+			);
+			indentWidth = 2;
+			sourceTree = "<group>";
+			tabWidth = 2;
+		};
+		9701BCE9134118C9000DBADF /* src */ = {
+			isa = PBXGroup;
+			children = (
+				9701BCEA134118C9000DBADF /* core */,
+				9701BCF2134118C9000DBADF /* db */,
+				9701BCF7134118C9000DBADF /* gephi */,
+				9701BCFA134118C9000DBADF /* git */,
+				9701BCFE134118C9000DBADF /* graphstream */,
+				9701BD03134118C9000DBADF /* scripts */,
+			);
+			name = src;
+			path = ../src;
+			sourceTree = "<group>";
+		};
+		9701BCEA134118C9000DBADF /* core */ = {
+			isa = PBXGroup;
+			children = (
+				9701BCEB134118C9000DBADF /* database.rb */,
+				9701BCEC134118C9000DBADF /* doxyparse.rb */,
+				9701BCED134118C9000DBADF /* graph_formats.rb */,
+				9701BCEE134118C9000DBADF /* metrics.rb */,
+				9701BCEF134118C9000DBADF /* network_base.rb */,
+				9701BCF0134118C9000DBADF /* scm.rb */,
+				9701BCF1134118C9000DBADF /* util.rb */,
+				9701BD121341288B000DBADF /* id-extractor.rb */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
+		9701BCF2134118C9000DBADF /* db */ = {
+			isa = PBXGroup;
+			children = (
+				9701BCF3134118C9000DBADF /* migrations */,
+				9701BCF6134118C9000DBADF /* model.rb */,
+			);
+			path = db;
+			sourceTree = "<group>";
+		};
+		9701BCF3134118C9000DBADF /* migrations */ = {
+			isa = PBXGroup;
+			children = (
+				9701BCF4134118C9000DBADF /* 001_initial_db.rb */,
+				9701BCF5134118C9000DBADF /* README */,
+			);
+			path = migrations;
+			sourceTree = "<group>";
+		};
+		9701BCF7134118C9000DBADF /* gephi */ = {
+			isa = PBXGroup;
+			children = (
+				9701BCF8134118C9000DBADF /* commits-to-gexf.rb */,
+				9701BCF9134118C9000DBADF /* README */,
+			);
+			path = gephi;
+			sourceTree = "<group>";
+		};
+		9701BCFA134118C9000DBADF /* git */ = {
+			isa = PBXGroup;
+			children = (
+				9701BCFB134118C9000DBADF /* .extract-repos.rb.swp */,
+				9701BCFC134118C9000DBADF /* extract-repos.rb */,
+				9701BCFD134118C9000DBADF /* gephi-streaming-master.rb */,
+			);
+			path = git;
+			sourceTree = "<group>";
+		};
+		9701BCFE134118C9000DBADF /* graphstream */ = {
+			isa = PBXGroup;
+			children = (
+				9701BCFF134118C9000DBADF /* Animate.class */,
+				9701BD00134118C9000DBADF /* Animate.java */,
+				9701BD01134118C9000DBADF /* generate-dgs.rb */,
+				9701BD02134118C9000DBADF /* README */,
+			);
+			path = graphstream;
+			sourceTree = "<group>";
+		};
+		9701BD03134118C9000DBADF /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				9701BD04134118C9000DBADF /* extract-identifiers.rb */,
+				9701BD05134118C9000DBADF /* read-git-logs.rb */,
+			);
+			path = scripts;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		9701BCE3134118A5000DBADF /* ResearchXcode */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = 9701BCE6134118A6000DBADF /* Build configuration list for PBXLegacyTarget "ResearchXcode" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = ResearchXcode;
+			passBuildSettingsInEnvironment = 1;
+			productName = ResearchXcode;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		9701BCDE134118A5000DBADF /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 9701BCE1134118A5000DBADF /* Build configuration list for PBXProject "ResearchXcode" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9701BCDC134118A5000DBADF;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9701BCE3134118A5000DBADF /* ResearchXcode */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		9701BCE4134118A6000DBADF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		9701BCE5134118A6000DBADF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		9701BCE7134118A6000DBADF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		9701BCE8134118A6000DBADF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9701BCE1134118A5000DBADF /* Build configuration list for PBXProject "ResearchXcode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9701BCE4134118A6000DBADF /* Debug */,
+				9701BCE5134118A6000DBADF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9701BCE6134118A6000DBADF /* Build configuration list for PBXLegacyTarget "ResearchXcode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9701BCE7134118A6000DBADF /* Debug */,
+				9701BCE8134118A6000DBADF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9701BCDE134118A5000DBADF /* Project object */;
+}

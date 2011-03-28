@@ -5,6 +5,8 @@
 require 'sequel'
 
 class Database
+  attr_reader :db
+  
   def initialize(url)
     @db = Sequel.connect(url)    
   end
