@@ -16,5 +16,8 @@ export RUBYLIB=$RUBYLIB:~/research/lib:~/research/src
 export R_HOME=/Library/Frameworks/R.framework/Resources
 
 # Java
-export CLASSPATH=$CLASSPATH:~/research/lib/gs-core.jar:~/research/src
+export CLASSPATH=$CLASSPATH:~/research/lib/gs-core.jar:~/research/bin:~/research/src:~/research/lib/javaparser-1.0.8.jar
 
+# Dependency Finder
+#export JAVA_HOME=/usr
+export DEPENDENCYFINDER_HOME=~/research/opt/DependencyFinder-1.2.1-beta3

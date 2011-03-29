@@ -37,9 +37,23 @@ Sequel.migration do
     create_table :identifier do
       primary_key :id
       foreign_key :repofile_id, :repofile
-      foreign_key :commit_id, :commit
 
       String :name
+      Integer :type
+        # 0 => module
+        # 1 => field
+        # 2 => method
+    end
+    
+    # Identifier evolution
+    create_table :identifier_evolution do
+      primary_key :id
+      foreign_key :identifier_id, :identifier
+      foreign_key :commit_id, :commit
+
+      Integer :was_added
+        # 0 => identifier was removed in that commit
+        # 1 => identifier was added in that commit
     end
 
   end  

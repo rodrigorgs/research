@@ -19,7 +19,6 @@
 		9701BCF6134118C9000DBADF /* model.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = model.rb; sourceTree = "<group>"; };
 		9701BCF8134118C9000DBADF /* commits-to-gexf.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "commits-to-gexf.rb"; sourceTree = "<group>"; };
 		9701BCF9134118C9000DBADF /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		9701BCFB134118C9000DBADF /* .extract-repos.rb.swp */ = {isa = PBXFileReference; lastKnownFileType = file; path = ".extract-repos.rb.swp"; sourceTree = "<group>"; };
 		9701BCFC134118C9000DBADF /* extract-repos.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "extract-repos.rb"; sourceTree = "<group>"; };
 		9701BCFD134118C9000DBADF /* gephi-streaming-master.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "gephi-streaming-master.rb"; sourceTree = "<group>"; };
 		9701BCFF134118C9000DBADF /* Animate.class */ = {isa = PBXFileReference; lastKnownFileType = compiled.javaclass; path = Animate.class; sourceTree = "<group>"; };
@@ -28,7 +27,7 @@
 		9701BD02134118C9000DBADF /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		9701BD04134118C9000DBADF /* extract-identifiers.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "extract-identifiers.rb"; sourceTree = "<group>"; };
 		9701BD05134118C9000DBADF /* read-git-logs.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "read-git-logs.rb"; sourceTree = "<group>"; };
-		9701BD121341288B000DBADF /* id-extractor.rb */ = {isa = PBXFileReference; fileEncoding = 4; path = "id-extractor.rb"; sourceTree = "<group>"; };
+		9701BD121341288B000DBADF /* id-extractor.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "id-extractor.rb"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -100,7 +99,6 @@
 		9701BCFA134118C9000DBADF /* git */ = {
 			isa = PBXGroup;
 			children = (
-				9701BCFB134118C9000DBADF /* .extract-repos.rb.swp */,
 				9701BCFC134118C9000DBADF /* extract-repos.rb */,
 				9701BCFD134118C9000DBADF /* gephi-streaming-master.rb */,
 			);
@@ -136,7 +134,8 @@
 			buildConfigurationList = 9701BCE6134118A6000DBADF /* Build configuration list for PBXLegacyTarget "ResearchXcode" */;
 			buildPhases = (
 			);
-			buildToolPath = /usr/bin/make;
+			buildToolPath = /bin/echo;
+			buildWorkingDirectory = "";
 			dependencies = (
 			);
 			name = ResearchXcode;
@@ -245,6 +244,7 @@
 				9701BCE8134118A6000DBADF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

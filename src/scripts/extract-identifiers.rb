@@ -58,7 +58,11 @@ end
 def extract(repo_path, db_path)
   #db = Sequel.connect("sqlite://#{db_path}")
 
+  # remove trailing slashes
+  repo_path.sub! %r{/+$}, ''
+  
   project_name = repo_path.split('/')[-1]
+  base_path = repo_path + '/'
 
   @handlers = []
   last_identifiers = Set.new
@@ -87,12 +91,15 @@ def extract(repo_path, db_path)
       #doxy.handler = IdentifiersDoxyHandler.new 
       #doxy.parse_multiple_paths(modified_files)
       #identifiers = doxy.handler.identifiers
-      identifiers = extract_ids(repo_path)
-              
-      puts "Parsed"
+      puts base_path
+      identifiers = extract_ids(modified_files, base_path)
+      #identifiers = extract_ids([repo_path]).map { |x| x[:name] }
+      identifiers = Set.new(identifiers)
       
       new_identifiers = identifiers - last_identifiers
       last_identifiers = identifiers
+      
+      next if new_identifiers.size == 0
 
       puts "Inserting #{new_identifiers.size} new identifiers..."
 
@@ -105,14 +112,23 @@ def extract(repo_path, db_path)
           :author_id => developer_id,
           :hash => commit.id,
           :time => commit.committed_date)
-      #repofile_id = DB.insert_unique_get_pk(:repofile,
-      #    :project_id => project_id,
-      #    :path => nil)
+      
       new_identifiers.each do |identifier|
-        DB.insert_unique(:identifier,
+        
+        repofile_id = DB.insert_unique_get_pk(:repofile,
+            :project_id => project_id,
+            :path => identifier[:file])
+
+        identifier_id = DB.insert_unique_get_pk(:identifier,
+          :repofile_id =>   repofile_id,
+          :type => identifier[:type],
+          :name => identifier[:name])
+        
+        DB.insert_unique_get_pk(:identifier_evolution,
+          :identifier_id => identifier_id,
           :commit_id => commit_id,
-          :repofile_id => nil,
-          :name => identifier)
+          :was_added => 1)
+      
       end
 
       #@handlers << doxy.handler
@@ -137,9 +153,9 @@ end
 
 if __FILE__ == $0
   #db = GitLogDatabase.new
-  #extract('/Users/rodrigorgs/research/corpus/screen-git', '/tmp/bli.sqlite')
-  #extract('/Users/rodrigorgs/research/corpus/aolserver', nil)
-  #extract('/Users/rodrigorgs/research/corpus/gnash', nil)
-  #extract('/Users/rodrigorgs/research/corpus/junit', nil)
-  extract('/Users/rodrigorgs/local/research/corpus/eclipse/org.eclipse.mylyn', nil)
+  #extract('/Users/rodrigorgs/local/research/corpus/screen-git', '/tmp/bli.sqlite')
+  #extract('/Users/rodrigorgs/local/research/corpus/aolserver', nil)
+  #extract('/Users/rodrigorgs/local/research/corpus/gnash', nil)
+  extract('/Users/rodrigorgs/local/research/corpus/junit', nil)
+  #extract('/Users/rodrigorgs/local/research/corpus/eclipse/org.eclipse.mylyn', nil)
 end
