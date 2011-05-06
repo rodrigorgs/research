@@ -58,6 +58,7 @@ class WorkflowLog
 <!-- ProM is the process mining framework. It can be freely obtained at http://www.processmining.org/. -->
 <WorkflowLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://is.tm.tue.nl/research/processmining/WorkflowLog.xsd" description="CPN Tools simulation log">
   <Source program="CPN Tools simulation"/>
+  <Process id="DEFAULT" description="Simulated process">
 EOT
     each_instance do |inst|
 
@@ -66,14 +67,14 @@ EOT
         s << %Q{      <AuditTrailEntry>\n} 
         s << %Q{      <WorkflowModelElement>#{entry.task}</WorkflowModelElement>\n} 
         s << %Q{      <EventType>#{entry.event_type}</EventType>\n} 
-        s << %Q{      <Timestamp>#{entry.timestamp.iso8601(10)}</Timestamp>\n} 
+        s << %Q{      <Timestamp>#{entry.timestamp.iso8601(3)}</Timestamp>\n} 
         s << %Q{      <Originator>#{entry.originator}</Originator>\n} 
         s << %Q{      </AuditTrailEntry>\n} 
       end
+      s << %Q{    </ProcessInstance>\n}
     end
 
     s << "  </Process>\n</WorkflowLog>"
-
     return s.string
   end
 end
