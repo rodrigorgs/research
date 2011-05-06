@@ -2,3 +2,6 @@ opt/
 corpus/
 eclipse
 doc/
+bin/
+include/
+lib/
