@@ -156,6 +156,6 @@ if __FILE__ == $0
   #extract('/Users/rodrigorgs/local/research/corpus/screen-git', '/tmp/bli.sqlite')
   #extract('/Users/rodrigorgs/local/research/corpus/aolserver', nil)
   #extract('/Users/rodrigorgs/local/research/corpus/gnash', nil)
-  extract('/Users/rodrigorgs/local/research/corpus/junit', nil)
-  #extract('/Users/rodrigorgs/local/research/corpus/eclipse/org.eclipse.mylyn', nil)
+  #extract('/Users/rodrigorgs/local/research/corpus/junit', nil)
+  extract('/Users/rodrigorgs/local/research/corpus/eclipse/org.eclipse.mylyn', nil)
 end
